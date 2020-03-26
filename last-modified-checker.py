@@ -37,7 +37,7 @@ if r.status_code == 200:
     print("Salvo: ", r.headers["Last-Modified"] )
 
 else:
-    print("[%d]: Not Modified" % r.status_code )   
+    print("[%d]: %s" % (r.status_code , r.reason) )   
 
 
 
