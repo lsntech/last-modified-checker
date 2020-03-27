@@ -1,7 +1,7 @@
 
 #  Project: Webpage update checker
 #  Version: 0.0.1
-#  Description: This Script verify if a determined website has been modified.
+#  Description: This Script verify if a determined webpage has been modified.
 #  Copyright(c) 2009-2020 Leandro Silva
 #  License: GPL v3
 
@@ -14,8 +14,11 @@ url = 'https://www.saopaulo.sp.gov.br/ultimas-noticias/'
 
 
 def saveLastModified(data):
-    with open("last-modified.data", mode="w", encoding="utf-8") as f:
-        f.write(data)
+    try:
+        with open("last-modified.data", mode="w", encoding="utf-8") as f:
+            f.write(data)
+    except PermissionError as e:
+           print(e)
 
 
 def readLastModified():
