@@ -19,12 +19,14 @@ def saveLastModified(data):
 
 
 def readLastModified():
-    with open("last-modified.data", mode="r" ,encoding="utf-8") as f:
-        return f.read()
-
-
-
-# This header verifies if-modified-since 
+    try:
+        with open("last-modified.data", mode="r" ,encoding="utf-8") as f:
+           return f.read()
+    except FileNotFoundError as e:
+           print(e)
+           return 'Sat, 1 Mar 2020 12:56:12 GMT' 
+    
+        
 headers = {'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36', 
             'If-modified-Since' : readLastModified() }
 
@@ -34,7 +36,7 @@ r = requests.get(url, headers=headers )
 if r.status_code == 200:
 
     saveLastModified(r.headers["Last-Modified"] )
-    print("Salvo: ", r.headers["Last-Modified"] )
+    print("Saved: ", r.headers["Last-Modified"] )
 
 else:
     print("[%d]: %s" % (r.status_code , r.reason) )   
